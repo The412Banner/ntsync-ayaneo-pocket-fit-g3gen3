@@ -1,0 +1,75 @@
+name: build
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      ACK_TAG: android14-6.1-2024-05_r1
+      LLVM: "-17"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bison flex libelf-dev libssl-dev dwarves clang-17 lld-17 llvm-17 zip
+      - name: Fetch Android common kernel ${{ env.ACK_TAG }}
+        run: git clone --depth 1 --branch "$ACK_TAG" https://android.googlesource.com/kernel/common ksrc
+      - name: Configure with the device's own config
+        working-directory: ksrc
+        run: |
+          cp ../device.config .config
+          make ARCH=arm64 LLVM=$LLVM olddefconfig
+          echo "== config options that changed from the device:"
+          diff <(grep '^CONFIG_' ../device.config | sort) <(grep '^CONFIG_' .config | sort) || true
+          for o in CFI_CLANG SHADOW_CALL_STACK KASAN MODVERSIONS STACKPROTECTOR_STRONG; do
+            grep -q "^CONFIG_$o=y" .config || { echo "::error::CONFIG_$o lost"; exit 1; }
+          done
+          make ARCH=arm64 LLVM=$LLVM modules_prepare -j"$(nproc)"
+      - name: Module.symvers from the device's CRCs
+        run: |
+          python3 - <<'PY'
+          import json
+          crcs = json.load(open("device_crcs.json"))
+          with open("ksrc/Module.symvers", "w") as f:
+              for sym, crc in sorted(crcs.items()):
+                  if sym == "module_layout":
+                      continue
+                  f.write(f"0x{int(crc, 16):08x}\t{sym}\tvmlinux\tEXPORT_SYMBOL\t\n")
+          PY
+          wc -l ksrc/Module.symvers
+      - name: Build ntsync.ko
+        run: |
+          make -C ksrc ARCH=arm64 LLVM=$LLVM M="$PWD/src" modules
+          ls -l src/ntsync.ko
+          llvm-readelf-17 -p .modinfo src/ntsync.ko
+      - name: Check every import against the device
+        run: |
+          python3 - <<'PY'
+          import json, struct, subprocess
+          crcs = json.load(open("device_crcs.json"))
+          subprocess.run(["llvm-objcopy-17", "-O", "binary", "--only-section=__versions", "src/ntsync.ko", "ver.bin"], check=True)
+          d = open("ver.bin", "rb").read()
+          bad = 0
+          for i in range(0, len(d), 64):
+              crc = struct.unpack("<Q", d[i:i+8])[0]
+              name = d[i+8:i+64].split(b"\0")[0].decode()
+              want = int(crcs.get(name, "0x0"), 16)
+              ok = crc == want
+              bad += not ok
+              print(("OK  " if ok else "BAD ") + f"{name} 0x{crc:08x} device 0x{want:08x}")
+          raise SystemExit(1 if bad else 0)
+          PY
+      - name: Package Magisk module
+        run: |
+          cp src/ntsync.ko magisk/
+          (cd magisk && zip -r9 ../ntsync-magisk.zip .)
+          sha256sum ntsync-magisk.zip src/ntsync.ko
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ntsync-magisk
+          path: |
+            ntsync-magisk.zip
+            src/ntsync.ko

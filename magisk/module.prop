@@ -1,0 +1,6 @@
+id=ntsync
+name=NTSync for Android GKI 6.1
+version=v1
+versionCode=1
+author=The412Banner
+description=Loads the ntsync kernel driver (backported from Linux 6.17) and exposes /dev/ntsync to apps for Wine/Proton.
