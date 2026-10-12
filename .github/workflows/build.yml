@@ -39,8 +39,6 @@ jobs:
           crcs = json.load(open("device_crcs.json"))
           with open("ksrc/Module.symvers", "w") as f:
               for sym, crc in sorted(crcs.items()):
-                  if sym == "module_layout":
-                      continue
                   f.write(f"0x{int(crc, 16):08x}\t{sym}\tvmlinux\tEXPORT_SYMBOL\t\n")
           PY
           wc -l ksrc/Module.symvers
