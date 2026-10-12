@@ -7,3 +7,7 @@ Built against `android14-6.1-2024-05_r1` (6.1.75) using the AYANEO Pocket FIT's 
 The only source change: GKI 6.1 doesn't export `schedule_hrtimeout_range_clock()`, so the module sleeps on its own hrtimer.
 
 The Magisk module loads the driver at boot, makes `/dev/ntsync` readable and writable by apps, and adds an SELinux rule for app access.
+
+## Test
+
+`test/ntsync_test.py` checks semaphores, events, mutexes, wait-any/wait-all, monotonic and realtime timeouts, and signal interruption through `/dev/ntsync`.
