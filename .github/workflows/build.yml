@@ -22,6 +22,10 @@ jobs:
         run: |
           cp ../device.config .config
           make ARCH=arm64 LLVM=$LLVM olddefconfig
+          # Trimming only decides which symbols vmlinux exports and needs the
+          # vendor's KMI list, which is not public. It does not change any layout.
+          scripts/config --disable TRIM_UNUSED_KSYMS
+          make ARCH=arm64 LLVM=$LLVM olddefconfig
           echo "== config options that changed from the device:"
           diff <(grep '^CONFIG_' ../device.config | sort) <(grep '^CONFIG_' .config | sort) || true
           for o in CFI_CLANG SHADOW_CALL_STACK KASAN MODVERSIONS STACKPROTECTOR_STRONG; do
