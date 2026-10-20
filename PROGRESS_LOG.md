@@ -1,7 +1,7 @@
 # Progress log
 
 ## Resume point
-README top + both release notes carry a use-at-your-own-risk disclaimer and per-release test status (v1.1 tested/works; rootscript-v1.0 NOT tested as a script). main @ cc8f21e. Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+README top + both release notes (v1.0 bootloop mention removed at user request, 664cacf) carry a use-at-your-own-risk disclaimer and per-release test status (v1.1 tested/works; rootscript-v1.0 NOT tested as a script). main @ cc8f21e. Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
 
 ## 2026-10-20 — Disclaimer + test status (main, docs only)
 - User asked: test status per release and a risk/responsibility disclaimer at the top of the README and in each release.
