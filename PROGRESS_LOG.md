@@ -1,7 +1,12 @@
 # Progress log
 
 ## Resume point
-Kernel ntsync device-proven in Bannerlator (DiRT Showdown). README + v1.1 release notes updated with the test results (main @ 8c55cd8). Open: SELinux Enforcing untested; Root Script not re-tested; no esync vs ntsync benchmark yet.
+README top + both release notes carry a use-at-your-own-risk disclaimer and per-release test status (v1.1 tested/works; rootscript-v1.0 NOT tested as a script). main @ cc8f21e. Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+
+## 2026-10-20 — Disclaimer + test status (main, docs only)
+- User asked: test status per release and a risk/responsibility disclaimer at the top of the README and in each release.
+- README: warning block + status table at the top (fix/readme-disclaimer, ff-merged; backup ref refs/backup/20261020/main-before-readme-disclaimer = 9b8cb42). Earlier wording fix 9b8cb42 (backup main-before-readme-accuracy = 7d06756).
+- Release notes edited: v1.1 "tested, works"; rootscript-v1.0 "not tested" (no record of the script ever being run on the device). Tags (v1.1 2e9496a, rootscript-v1.0 767e015) and assets unchanged. Old notes saved in ~/.claude/projects/-root/ntsync-release-notes-backup/.
 
 ## 2026-10-20 — Bannerlator uses the kernel driver (main, device-proven)
 **Device test:** DiRT Showdown in Bannerlator, layer DroidDeck-Proton 11.0-9.1 v14 (proton-wine), Sync = ntsync.
