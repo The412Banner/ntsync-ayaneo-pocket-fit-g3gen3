@@ -1,5 +1,17 @@
 # ntsync for the AYANEO (KONKR) Pocket FIT — Snapdragon G3 Gen 3
 
+> [!WARNING]
+> **Use at your own risk.** This loads a third-party kernel driver into your device's kernel. A bad kernel module can crash the device, stop it from booting, or force a factory reset with loss of all data — an earlier build (v1.0, since withdrawn) did exactly that on our own device. Back up your data first. This software comes with **no warranty** (GPL-2.0). By installing it, you accept that **all responsibility for any damage, data loss or other consequences lies entirely with you**. Not affiliated with or endorsed by AYANEO or KONKR.
+
+**Test status on our device** (Pocket FIT G3 Gen 3, kernel `6.1.75-android14-11`, Magisk 30.7, SELinux Permissive):
+
+| Release | Status |
+|---|---|
+| `v1.1` (Magisk) | **Tested, works** (2026-10-20): installs and reboots normally, driver loads after boot, driver tests pass, DiRT Showdown in Bannerlator runs on it. |
+| `rootscript-v1.0` (Root Script) | **Not tested** as a script on our device. It contains the same driver code as v1.1. |
+
+Other devices, kernels and SELinux Enforcing setups are not tested.
+
 Adds the Linux `ntsync` driver (backported from Linux 6.17) to the Pocket FIT's stock Android 14 kernel. Wine/Proton apps can then use `/dev/ntsync` for faster Windows-style synchronization.
 
 **Only for:** AYANEO (KONKR) Pocket FIT, Snapdragon G3 Gen 3, stock Android 14 (kernel `6.1.75-android14-11`). The Magisk installer refuses any other kernel; the Root Script only checks for a 6.1 Android 14 kernel.
