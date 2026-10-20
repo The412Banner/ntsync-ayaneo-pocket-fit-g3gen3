@@ -1,12 +1,19 @@
 # Progress log
 
 ## Resume point
-Release cleanup in progress (user decisions 2026-10-20): old Magisk tag deleted, Root Script release republished as `rootscript-v1.1` from a fresh CI build of main, old Root Script release/tag removed, version numbers of the withdrawn build dropped from this log. Git history not rewritten (user chose to skip it). Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+Release cleanup done (2026-10-20). Releases: `v1.1` (Magisk, Latest, tag 2e9496a) and `rootscript-v1.1` (Root Script, tag 60a8e02, CI run 39514494770). Git history not rewritten (user chose to skip it). Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
 
 ## 2026-10-20 — Release cleanup (fix/release-cleanup → main, docs + releases)
 **Why:** user asked to remove every mention of the withdrawn first version from the repo.
 **User decisions:** delete the old Magisk tag; rename the Root Script release to `rootscript-v1.1`, rebuilt by CI from current main; reword this log; do NOT rewrite git history (it would force-move the published v1.1 tag), so old commit messages stay.
 **Plan:** README table → `rootscript-v1.1`; CI build of the merge commit; create `rootscript-v1.1` (not Latest) with the CI zip; back up and delete the old Root Script release + tag and the old Magisk tag.
+**Done:**
+- main 60a8e02 (fix/release-cleanup, ff; backup ref refs/backup/20261020/main-before-release-cleanup = 67b71d3). CI run 39514494770 (push, headSha 60a8e02, job build: success).
+- Root Script zip from that run: script == main, `ntsync.ko` code/data identical to the previous Root Script build (only build-id and scmversion g60a8e02 differ). Published as `rootscript-v1.1` (target 60a8e02, not Latest), asset `ntsync-pocket-fit-g3gen3-rootscript-v1.1.zip` sha256 c88832d7…85ac5d — GitHub digest matches.
+- Old Root Script release + tag deleted (backup: ~/.claude/projects/-root/ntsync-rootscript-first-release-backup/, zip sha256 00af9762…). Old Magisk tag deleted; commit 767e015 still kept by refs/backup/20261020/main-before-post-boot-load.
+- Backup ref renamed to refs/backup/20261020/main-before-readme-warning-trim (= 65f0550); merged branch of the warning trim deleted (tip 664cacf is in main).
+- Check: no tag, branch, ref, file on main or release text mentions the withdrawn version. Old commit messages still do (history kept).
+**Device test:** none (docs/releases only). Root Script still NOT device-tested.
 
 ## 2026-10-20 — Disclaimer + test status (main, docs only)
 - User asked: test status per release and a risk/responsibility disclaimer at the top of the README and in each release.
