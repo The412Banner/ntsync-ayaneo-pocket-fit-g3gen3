@@ -3,6 +3,10 @@
 ## Resume point
 Release cleanup done (2026-10-20). Releases: `v1.1` (Magisk, Latest, tag 2e9496a) and `rootscript-v1.1` (Root Script, tag 60a8e02, CI run 39514494770). Git history not rewritten (user chose to skip it). Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
 
+## 2026-10-20 — Wording fixes (main, docs only)
+- README: Root Script output "should show" the OK line (the script prints `ls -l /dev/ntsync` after it); "not re-tested" → "not tested". Branch fix/readme-wording, ff to main ca97776 (backup ref refs/backup/20261020/main-before-readme-wording = 91d3a4b).
+- Release notes: v1.1 "The Proton 10 layers in proton-wine can't use it"; rootscript-v1.1 "should show". Tags and assets unchanged; old notes in ~/.claude/projects/-root/ntsync-release-notes-backup/.
+
 ## 2026-10-20 — Release cleanup (fix/release-cleanup → main, docs + releases)
 **Why:** user asked to remove every mention of the withdrawn first version from the repo.
 **User decisions:** delete the old Magisk tag; rename the Root Script release to `rootscript-v1.1`, rebuilt by CI from current main; reword this log; do NOT rewrite git history (it would force-move the published v1.1 tag), so old commit messages stay.
