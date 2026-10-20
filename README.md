@@ -13,7 +13,6 @@ The driver is loaded about 15 seconds after Android has finished booting, never 
 
 Remove: Magisk → Modules → ntsync → Remove → reboot.
 
-**Device-tested:** v1.1 installed through Magisk 30.7 on a Pocket FIT G3 Gen 3 (kernel `6.1.75-android14-11`) and rebooted (2026-10-20). Android booted normally, the driver loaded after boot, the 60 s guard cleared, `test/ntsync_test.py` passed every check, and the kernel log showed no errors.
 
 ## Option 2: No Magisk (AYANEO Root Script)
 
@@ -26,6 +25,22 @@ Run it again after every reboot. Remove: just reboot.
 ## Check
 
 `/dev/ntsync` exists with mode `crw-rw-rw-`.
+
+## Using it with Wine/Proton
+
+The Wine build has to support ntsync and be told to use it. Wine/Proton 10 builds have no ntsync support and keep using esync.
+
+- **Bannerlator:** use one of the v14 Proton 11 compatibility layers from [proton-wine](https://github.com/The412Banner/proton-wine/releases) and set **Sync** to **ntsync** (container or per game). The layer uses `/dev/ntsync` when it works and otherwise falls back to the userspace ntsync by Joshua Tam ([GameNative/ntsync-android](https://github.com/GameNative/ntsync-android)).
+- **Other Wine builds:** set `WINENTSYNC=1` if the build needs it. In the Wine log, `ntsync: WINENTSYNC set, using kernel /dev/ntsync.` means the driver is in use.
+
+## Tested
+
+On a Pocket FIT G3 Gen 3 (kernel `6.1.75-android14-11`, Magisk 30.7, SELinux Permissive), 2026-10-20:
+
+- v1.1 installed through Magisk and rebooted: Android booted normally, the driver loaded after boot, the 60 s guard cleared, `test/ntsync_test.py` passed every check, no kernel errors.
+- DiRT Showdown in Bannerlator (DroidDeck-Proton 11.0-9.1 v14 layer, Sync = ntsync): Wine used the kernel driver (about 600 ntsync objects in the game, 2,600 in the wineserver, no esync), no crashes.
+
+Not tested: a device with SELinux Enforcing (on the test device, SELinux logged the app's `ioctl` on `/dev/ntsync` as denied but allowed it because of Permissive; on Enforcing, `service.sh` adds rules that allow it). The Root Script option was not re-tested.
 
 ## Notes
 
