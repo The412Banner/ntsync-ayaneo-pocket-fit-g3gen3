@@ -1,9 +1,14 @@
 # Progress log
 
 ## Resume point
-v1.1 release cut from main at the user's request (2026-10-20). Magisk install + reboot still NOT device-tested at release time.
+v1.1 Magisk install + reboot device-proven (2026-10-20 18:02 EDT boot). Nothing open. Next: real Wine/Proton use of /dev/ntsync, only if the user wants.
 
-Previous: Branch `fix/post-boot-load`: Magisk module rebuilt to load only after boot. CI-green (run 39497500929). Manual load of the new service.sh device-proven; Magisk install + reboot NOT tested. Next: install + reboot only if the user agrees.
+## 2026-10-20 — v1.1 install + reboot on device (main, device-proven)
+**Device test:** user installed v1.1 from /sdcard/Download/ntsync-pocket-fit-g3gen3-v1.1.zip (sha256 2a0aa419...326a, matches release) and rebooted. Boot reached Android normally.
+- Installed /data/adb/modules/ntsync/ntsync.ko sha256 7172979b... and service.sh eedcbe04... == files in the v1.1 release zip.
+- ntsync.log: `18:02:22 insmod ok`, `/dev/ntsync` crw-rw-rw- 10,115, `stable for 60s`; `loading` guard removed; `lsmod`: ntsync 49152 0.
+- dmesg: no oops/panic/CFI lines. logcat crash buffer: nvkeeper (stack-protector abort, 18:02:02) and qcrosvm trustedvm (18:02:07), both before ntsync loaded. Same pair is in every boot's tombstones back to tombstone_00/01 (factory build, 2025-12-25), so stock behaviour, not ntsync.
+- test/ntsync_test.py from the Termux app: ALL PASS.
 
 ## 2026-10-20 — Load only after boot (fix/post-boot-load, manual load device-proven; install NOT tested)
 **Why:** installing v1.0 via Magisk and rebooting left the Pocket FIT stuck in the bootloader FastBoot menu on every boot; the user had to factory reset. The driver had worked before when loaded by hand after boot.
