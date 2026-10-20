@@ -2,7 +2,7 @@
 
 Adds the Linux `ntsync` driver (backported from Linux 6.17) to the Pocket FIT's stock Android 14 kernel. Wine/Proton apps can then use `/dev/ntsync` for faster Windows-style synchronization.
 
-**Only for:** AYANEO (KONKR) Pocket FIT, Snapdragon G3 Gen 3, stock Android 14 (kernel `6.1.75-android14-11`). On anything else the driver simply won't load.
+**Only for:** AYANEO (KONKR) Pocket FIT, Snapdragon G3 Gen 3, stock Android 14 (kernel `6.1.75-android14-11`). The installer refuses any other kernel.
 
 ## Option 1: Magisk (loads automatically after every boot)
 
@@ -12,8 +12,6 @@ Adds the Linux `ntsync` driver (backported from Linux 6.17) to the Pocket FIT's 
 The driver is loaded about 15 seconds after Android has finished booting, never during boot. If a load ever crashes or reboots the device, the next boot skips it and the module turns itself off (it shows as disabled in Magisk). The log is at `/data/adb/modules/ntsync/ntsync.log`.
 
 Remove: Magisk → Modules → ntsync → Remove → reboot.
-
-**v1.0 warning:** the v1.0 Magisk zip loaded the driver and changed the SELinux policy during early boot. On at least one device it stopped Android from booting (the device stayed in the fastboot menu). Do not use v1.0.
 
 ## Option 2: No Magisk (AYANEO Root Script)
 
@@ -30,5 +28,6 @@ Run it again after every reboot. Remove: just reboot.
 ## Notes
 
 - Built in CI against Android common kernel `android14-6.1-2024-05_r1` with the Pocket FIT's own kernel config; every imported symbol is checked against the device. `test/ntsync_test.py` tests the driver.
+- Nothing runs during early boot and the module does not change the saved SELinux policy. With SELinux Enforcing, `service.sh` adds the app rules to the running policy only.
 - Only change to the upstream driver: GKI 6.1 doesn't export `schedule_hrtimeout_range_clock()`, so it uses its own hrtimer.
 - License: GPL-2.0-only (upstream driver © 2024 Elizabeth Figura).

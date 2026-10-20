@@ -1,7 +1,9 @@
 # Progress log
 
 ## Resume point
-Branch `fix/post-boot-load`: Magisk module rebuilt to load only after boot. CI-green (run 39497500929). Manual load of the new service.sh device-proven; Magisk install + reboot NOT tested. Next: install + reboot only if the user agrees.
+v1.1 release cut from main at the user's request (2026-10-20). Magisk install + reboot still NOT device-tested at release time.
+
+Previous: Branch `fix/post-boot-load`: Magisk module rebuilt to load only after boot. CI-green (run 39497500929). Manual load of the new service.sh device-proven; Magisk install + reboot NOT tested. Next: install + reboot only if the user agrees.
 
 ## 2026-10-20 — Load only after boot (fix/post-boot-load, manual load device-proven; install NOT tested)
 **Why:** installing v1.0 via Magisk and rebooting left the Pocket FIT stuck in the bootloader FastBoot menu on every boot; the user had to factory reset. The driver had worked before when loaded by hand after boot.
