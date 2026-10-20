@@ -8,7 +8,7 @@
 | Release | Status |
 |---|---|
 | `v1.1` (Magisk) | **Tested, works** (2026-10-20): installs and reboots normally, driver loads after boot, driver tests pass, DiRT Showdown in Bannerlator runs on it. |
-| `rootscript-v1.0` (Root Script) | **Not tested** as a script on our device. It contains the same driver code as v1.1. |
+| `rootscript-v1.1` (Root Script) | **Not tested** as a script on our device. It contains the same driver code as v1.1. |
 
 Other devices, kernels and SELinux Enforcing setups are not tested.
 

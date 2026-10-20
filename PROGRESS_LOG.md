@@ -1,12 +1,17 @@
 # Progress log
 
 ## Resume point
-README top + both release notes (v1.0 bootloop mention removed at user request, 664cacf) carry a use-at-your-own-risk disclaimer and per-release test status (v1.1 tested/works; rootscript-v1.0 NOT tested as a script). main @ cc8f21e. Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+Release cleanup in progress (user decisions 2026-10-20): old Magisk tag deleted, Root Script release republished as `rootscript-v1.1` from a fresh CI build of main, old Root Script release/tag removed, version numbers of the withdrawn build dropped from this log. Git history not rewritten (user chose to skip it). Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+
+## 2026-10-20 — Release cleanup (fix/release-cleanup → main, docs + releases)
+**Why:** user asked to remove every mention of the withdrawn first version from the repo.
+**User decisions:** delete the old Magisk tag; rename the Root Script release to `rootscript-v1.1`, rebuilt by CI from current main; reword this log; do NOT rewrite git history (it would force-move the published v1.1 tag), so old commit messages stay.
+**Plan:** README table → `rootscript-v1.1`; CI build of the merge commit; create `rootscript-v1.1` (not Latest) with the CI zip; back up and delete the old Root Script release + tag and the old Magisk tag.
 
 ## 2026-10-20 — Disclaimer + test status (main, docs only)
 - User asked: test status per release and a risk/responsibility disclaimer at the top of the README and in each release.
 - README: warning block + status table at the top (fix/readme-disclaimer, ff-merged; backup ref refs/backup/20261020/main-before-readme-disclaimer = 9b8cb42). Earlier wording fix 9b8cb42 (backup main-before-readme-accuracy = 7d06756).
-- Release notes edited: v1.1 "tested, works"; rootscript-v1.0 "not tested" (no record of the script ever being run on the device). Tags (v1.1 2e9496a, rootscript-v1.0 767e015) and assets unchanged. Old notes saved in ~/.claude/projects/-root/ntsync-release-notes-backup/.
+- Release notes edited: v1.1 "tested, works"; Root Script release "not tested" (no record of the script ever being run on the device). Tags (v1.1 2e9496a, Root Script 767e015) and assets unchanged. Old notes saved in ~/.claude/projects/-root/ntsync-release-notes-backup/.
 
 ## 2026-10-20 — Bannerlator uses the kernel driver (main, device-proven)
 **Device test:** DiRT Showdown in Bannerlator, layer DroidDeck-Proton 11.0-9.1 v14 (proton-wine), Sync = ntsync.
@@ -24,9 +29,9 @@ README top + both release notes (v1.0 bootloop mention removed at user request, 
 - test/ntsync_test.py from the Termux app: ALL PASS.
 
 ## 2026-10-20 — Load only after boot (fix/post-boot-load, manual load device-proven; install NOT tested)
-**Why:** installing v1.0 via Magisk and rebooting left the Pocket FIT stuck in the bootloader FastBoot menu on every boot; the user had to factory reset. The driver had worked before when loaded by hand after boot.
+**Why:** installing the first Magisk build and rebooting left the Pocket FIT stuck in the bootloader FastBoot menu on every boot; the user had to factory reset. The driver had worked before when loaded by hand after boot.
 **Findings:**
-- Driver unchanged since Oct 12: `src/` and the Magisk scripts are identical between 6197e08 and 767e015; the Oct 12 CI build (run 38285662206) and the v1.0 `ntsync.ko` have byte-identical code/data sections.
+- Driver unchanged since Oct 12: `src/` and the Magisk scripts are identical between 6197e08 and 767e015; the Oct 12 CI build (run 38285662206) and the first Magisk build's `ntsync.ko` have byte-identical code/data sections.
 - Live device: `/proc/config.gz` identical to `device.config`; all 35 imports exported by the running kernel; `sepolicy.rule` applies cleanly offline with magiskpolicy.
 - So the new part on the day of the bootloop was the Magisk boot path: `sepolicy.rule` (merged at early init) and `insmod` in `post-fs-data.sh`. Which of the two failed is unproven; boot logs were lost in the wipe.
 **Change:**
@@ -36,10 +41,10 @@ README top + both release notes (v1.0 bootloop mention removed at user request, 
 - `customize.sh` aborts on any other kernel release.
 **Device test:** guard logic tested on the device with a fake insmod (leftover guard → `disable` created; normal run → guard cleared). Real load NOT tested yet.
 - Step 1 (2026-10-20 17:11 EDT): CI build ebea17c `service.sh` run by hand as root from /data/local/tmp (not installed). insmod ok, `/dev/ntsync` crw-rw-rw- 10,115, guard cleared after 60 s ("stable for 60s"). `ntsync 49152 0 - Live (OE)`. dmesg during the run: no oops/warning/CFI lines (only permissive avc). logcat crash buffer empty. `test/ntsync_test.py` from the Termux app uid: ALL PASS (timeouts, wake, wait-all, mutex, signal).
-- 2026-10-20: v1.0 Magisk release deleted at the user's request (`gh release delete v1.0`). Tag v1.0 kept (767e015). Release notes + zip (sha256 092ed68b...) backed up to ~/.claude/projects/-root/ntsync-v1.0-release-backup/. The separate `rootscript-v1.0` release (post-boot manual loader) is still published.
-- 2026-10-20: v1.1 released (Latest) at the user's request: merge 2e9496a on main (backup ref refs/backup/20261020/main-before-post-boot-load = 767e015), CI run 39498862107 success, tag v1.1 == 2e9496a, asset ntsync-pocket-fit-g3gen3-v1.1.zip sha256 2a0aa419... (driver code sections identical to the device-tested ebea17c build). README has no mention of v1.0. Magisk install + reboot NOT device-tested at release.
+- 2026-10-20: the first Magisk release was deleted at the user's request. Its tag was kept at 767e015 (deleted later in the release cleanup). Release notes + zip backed up to ~/.claude/projects/-root/ntsync-first-release-backup/ (local, not in the repo). The separate Root Script release (post-boot manual loader) stayed published.
+- 2026-10-20: v1.1 released (Latest) at the user's request: merge 2e9496a on main (backup ref refs/backup/20261020/main-before-post-boot-load = 767e015), CI run 39498862107 success, tag v1.1 == 2e9496a, asset ntsync-pocket-fit-g3gen3-v1.1.zip sha256 2a0aa419... (driver code sections identical to the device-tested ebea17c build). README has no mention of the first build. Magisk install + reboot NOT device-tested at release.
 **Recovery without wipe:** stock init_boot rebuilt from Magisk's backup at `/sdcard/Download/pocketfit-backup/stock_init_boot_a.img`; `fastboot boot` it to start without Magisk.
 
 ## Lessons learned (don't repeat these)
-- v1.0 was released before the Magisk install path was ever tested on the device. Never release a boot-time module before it is device-proven.
+- The first Magisk build was released before the Magisk install path was ever tested on the device. Never release a boot-time module before it is device-proven.
 - Nothing that can crash may run during early boot without a way to switch itself off.
