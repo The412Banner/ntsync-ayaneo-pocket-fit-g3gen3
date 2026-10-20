@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # Load ntsync on the AYANEO (KONKR) Pocket FIT (Snapdragon G3 Gen 3) without Magisk.
-# Run it with System Settings > Root Script (or any root shell). Keep ntsync.ko
-# in the same folder as this script. The driver stays loaded until the next reboot.
+# Run it with System Settings > Root Script. Keep ntsync.ko next to this script.
+# The driver stays loaded until the next reboot.
 
 DIR=$(cd "$(dirname "$0")" && pwd)
 KO="$DIR/ntsync.ko"
