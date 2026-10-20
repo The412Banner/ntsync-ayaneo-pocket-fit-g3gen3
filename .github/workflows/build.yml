@@ -69,9 +69,16 @@ jobs:
           cp src/ntsync.ko magisk/
           (cd magisk && zip -r9 ../ntsync-pocket-fit-g3gen3.zip .)
           sha256sum ntsync-pocket-fit-g3gen3.zip src/ntsync.ko
+      - name: Package Root Script version
+        run: |
+          mkdir -p rootscript
+          cp src/ntsync.ko script/ntsync-load.sh rootscript/
+          (cd rootscript && zip -r9 ../ntsync-pocket-fit-g3gen3-rootscript.zip .)
+          sha256sum ntsync-pocket-fit-g3gen3-rootscript.zip
       - uses: actions/upload-artifact@v4
         with:
           name: ntsync-pocket-fit-g3gen3
           path: |
             ntsync-pocket-fit-g3gen3.zip
+            ntsync-pocket-fit-g3gen3-rootscript.zip
             src/ntsync.ko
