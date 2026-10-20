@@ -1,5 +1,0 @@
-type ntsync_device
-typeattribute ntsync_device dev_type
-typeattribute ntsync_device mlstrustedobject
-allow untrusted_app_all ntsync_device chr_file { getattr open read write ioctl }
-allow appdomain ntsync_device chr_file { getattr open read write ioctl }
