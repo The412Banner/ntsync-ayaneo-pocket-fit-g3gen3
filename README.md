@@ -30,7 +30,7 @@ Remove: Magisk → Modules → ntsync → Remove → reboot.
 
 1. Download `ntsync-pocket-fit-g3gen3-rootscript-<version>.zip` from [Releases](../../releases) and extract it. Keep both files in the same folder.
 2. System Settings → Root Script → **+** → pick `ntsync-load.sh` → **Run**.
-3. The result should end with `OK: /dev/ntsync is ready for apps`.
+3. The result should show `OK: /dev/ntsync is ready for apps`.
 
 Run it again after every reboot. Remove: just reboot.
 
@@ -52,7 +52,7 @@ On a Pocket FIT G3 Gen 3 (kernel `6.1.75-android14-11`, Magisk 30.7, SELinux Per
 - v1.1 installed through Magisk and rebooted: Android booted normally, the driver loaded after boot, the 60 s guard cleared, `test/ntsync_test.py` passed every check, no kernel errors.
 - DiRT Showdown in Bannerlator (DroidDeck-Proton 11.0-9.1 v14 layer, Sync = ntsync): Wine used the kernel driver (about 600 ntsync objects in the game, 2,600 in the wineserver, no esync), no crashes.
 
-Not tested: a device with SELinux Enforcing (on the test device, SELinux logged the app's `ioctl` on `/dev/ntsync` as denied but allowed it because of Permissive; on Enforcing, `service.sh` adds rules that allow it). The Root Script option was not re-tested.
+Not tested: a device with SELinux Enforcing (on the test device, SELinux logged the app's `ioctl` on `/dev/ntsync` as denied but allowed it because of Permissive; on Enforcing, `service.sh` adds rules that allow it). The Root Script option was not tested.
 
 ## Notes
 
