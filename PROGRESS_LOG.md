@@ -16,6 +16,7 @@ Branch `fix/post-boot-load`: Magisk module rebuilt to load only after boot. CI-g
 - `customize.sh` aborts on any other kernel release.
 **Device test:** guard logic tested on the device with a fake insmod (leftover guard → `disable` created; normal run → guard cleared). Real load NOT tested yet.
 - Step 1 (2026-10-20 17:11 EDT): CI build ebea17c `service.sh` run by hand as root from /data/local/tmp (not installed). insmod ok, `/dev/ntsync` crw-rw-rw- 10,115, guard cleared after 60 s ("stable for 60s"). `ntsync 49152 0 - Live (OE)`. dmesg during the run: no oops/warning/CFI lines (only permissive avc). logcat crash buffer empty. `test/ntsync_test.py` from the Termux app uid: ALL PASS (timeouts, wake, wait-all, mutex, signal).
+- 2026-10-20: v1.0 Magisk release deleted at the user's request (`gh release delete v1.0`). Tag v1.0 kept (767e015). Release notes + zip (sha256 092ed68b...) backed up to ~/.claude/projects/-root/ntsync-v1.0-release-backup/. The separate `rootscript-v1.0` release (post-boot manual loader) is still published.
 **Recovery without wipe:** stock init_boot rebuilt from Magisk's backup at `/sdcard/Download/pocketfit-backup/stock_init_boot_a.img`; `fastboot boot` it to start without Magisk.
 
 ## Lessons learned (don't repeat these)
