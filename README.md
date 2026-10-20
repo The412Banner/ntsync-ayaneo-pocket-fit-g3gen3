@@ -13,6 +13,8 @@ The driver is loaded about 15 seconds after Android has finished booting, never 
 
 Remove: Magisk → Modules → ntsync → Remove → reboot.
 
+**Device-tested:** v1.1 installed through Magisk 30.7 on a Pocket FIT G3 Gen 3 (kernel `6.1.75-android14-11`) and rebooted (2026-10-20). Android booted normally, the driver loaded after boot, the 60 s guard cleared, `test/ntsync_test.py` passed every check, and the kernel log showed no errors.
+
 ## Option 2: No Magisk (AYANEO Root Script)
 
 1. Download `ntsync-pocket-fit-g3gen3-rootscript-<version>.zip` from [Releases](../../releases) and extract it. Keep both files in the same folder.
