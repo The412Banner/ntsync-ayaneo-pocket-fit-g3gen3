@@ -2,7 +2,7 @@
 
 Adds the Linux `ntsync` driver (backported from Linux 6.17) to the Pocket FIT's stock Android 14 kernel. Wine/Proton apps can then use `/dev/ntsync` for faster Windows-style synchronization.
 
-**Only for:** AYANEO (KONKR) Pocket FIT, Snapdragon G3 Gen 3, stock Android 14 (kernel `6.1.75-android14-11`). The installer refuses any other kernel.
+**Only for:** AYANEO (KONKR) Pocket FIT, Snapdragon G3 Gen 3, stock Android 14 (kernel `6.1.75-android14-11`). The Magisk installer refuses any other kernel; the Root Script only checks for a 6.1 Android 14 kernel.
 
 ## Option 1: Magisk (loads automatically after every boot)
 
@@ -28,7 +28,7 @@ Run it again after every reboot. Remove: just reboot.
 
 ## Using it with Wine/Proton
 
-The Wine build has to support ntsync and be told to use it. Wine/Proton 10 builds have no ntsync support and keep using esync.
+The Wine build has to support ntsync and be told to use it. The Proton 10 layers in proton-wine have no ntsync support and keep using esync.
 
 - **Bannerlator:** use one of the v14 Proton 11 compatibility layers from [proton-wine](https://github.com/The412Banner/proton-wine/releases) and set **Sync** to **ntsync** (container or per game). The layer uses `/dev/ntsync` when it works and otherwise falls back to the userspace ntsync by Joshua Tam ([GameNative/ntsync-android](https://github.com/GameNative/ntsync-android)).
 - **Other Wine builds:** set `WINENTSYNC=1` if the build needs it. In the Wine log, `ntsync: WINENTSYNC set, using kernel /dev/ntsync.` means the driver is in use.
