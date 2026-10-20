@@ -67,11 +67,11 @@ jobs:
       - name: Package Magisk module
         run: |
           cp src/ntsync.ko magisk/
-          (cd magisk && zip -r9 ../ntsync-magisk.zip .)
-          sha256sum ntsync-magisk.zip src/ntsync.ko
+          (cd magisk && zip -r9 ../ntsync-pocket-fit-g3gen3.zip .)
+          sha256sum ntsync-pocket-fit-g3gen3.zip src/ntsync.ko
       - uses: actions/upload-artifact@v4
         with:
-          name: ntsync-magisk
+          name: ntsync-pocket-fit-g3gen3
           path: |
-            ntsync-magisk.zip
+            ntsync-pocket-fit-g3gen3.zip
             src/ntsync.ko

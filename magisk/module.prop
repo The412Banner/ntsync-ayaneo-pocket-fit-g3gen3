@@ -1,6 +1,6 @@
 id=ntsync
-name=NTSync for Android GKI 6.1
-version=v1
+name=NTSync for AYANEO (KONKR) Pocket FIT (Snapdragon G3 Gen 3)
+version=v1.0-pre
 versionCode=1
 author=The412Banner
-description=Loads the ntsync kernel driver (backported from Linux 6.17) and exposes /dev/ntsync to apps for Wine/Proton.
+description=Loads the ntsync kernel driver (backported from Linux 6.17) on the Pocket FIT G3 Gen 3 stock Android 14 kernel and exposes /dev/ntsync to apps for Wine/Proton.
