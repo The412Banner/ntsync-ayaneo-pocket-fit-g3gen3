@@ -1,7 +1,7 @@
 # ntsync for the AYANEO (KONKR) Pocket FIT — Snapdragon G3 Gen 3
 
 > [!WARNING]
-> **Use at your own risk.** This loads a third-party kernel driver into your device's kernel. A bad kernel module can crash the device, stop it from booting, or force a factory reset with loss of all data — an earlier build (v1.0, since withdrawn) did exactly that on our own device. Back up your data first. This software comes with **no warranty** (GPL-2.0). By installing it, you accept that **all responsibility for any damage, data loss or other consequences lies entirely with you**. Not affiliated with or endorsed by AYANEO or KONKR.
+> **Use at your own risk.** This loads a third-party kernel driver into your device's kernel. A bad kernel module can crash the device, stop it from booting, or force a factory reset with loss of all data. Back up your data first. This software comes with **no warranty** (GPL-2.0). By installing it, you accept that **all responsibility for any damage, data loss or other consequences lies entirely with you**. Not affiliated with or endorsed by AYANEO or KONKR.
 
 **Test status on our device** (Pocket FIT G3 Gen 3, kernel `6.1.75-android14-11`, Magisk 30.7, SELinux Permissive):
 
