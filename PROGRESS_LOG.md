@@ -1,7 +1,15 @@
 # Progress log
 
 ## Resume point
-v1.1 Magisk install + reboot device-proven (2026-10-20 18:02 EDT boot). Nothing open. Next: real Wine/Proton use of /dev/ntsync, only if the user wants.
+Kernel ntsync device-proven in Bannerlator (DiRT Showdown). README + v1.1 release notes updated with the test results (main @ 8c55cd8). Open: SELinux Enforcing untested; Root Script not re-tested; no esync vs ntsync benchmark yet.
+
+## 2026-10-20 — Bannerlator uses the kernel driver (main, device-proven)
+**Device test:** DiRT Showdown in Bannerlator, layer DroidDeck-Proton 11.0-9.1 v14 (proton-wine), Sync = ntsync.
+- wine_debug.log: `ntsync: WINENTSYNC set, using kernel /dev/ntsync.`, no esync lines.
+- While running: wineserver 2602 ntsync fds, showdown.exe 1 `/dev/ntsync` + 608 `anon_inode:ntsync`, 0 eventfds; module refcount 2602.
+- logcat: no FATAL, crash buffer empty; dmesg: no oops/CFI. Two avc denials `ioctl` on `/dev/ntsync` (untrusted_app_27 → device:s0, permissive=1): Enforcing devices depend on the service.sh live rules (untested).
+- Earlier esync runs: the stock Wine 11 path opened `/dev/ntsync` ("ntsync: up and running.") but games still used esync.
+**Docs:** README gets "Using it with Wine/Proton" + "Tested" sections (branch fix/readme-device-tested, fast-forwarded to main at the user's request; backup ref refs/backup/20261020/main-before-readme-device-tested = c0fca3e). v1.1 release notes edited (tag 2e9496a and asset sha256 2a0aa419… unchanged).
 
 ## 2026-10-20 — v1.1 install + reboot on device (main, device-proven)
 **Device test:** user installed v1.1 from /sdcard/Download/ntsync-pocket-fit-g3gen3-v1.1.zip (sha256 2a0aa419...326a, matches release) and rebooted. Boot reached Android normally.
