@@ -8,7 +8,7 @@
 | Release | Status |
 |---|---|
 | `v1.1` (Magisk) | **Tested, works** (2026-10-20): installs and reboots normally, driver loads after boot, driver tests pass, DiRT Showdown in Bannerlator runs on it. |
-| `rootscript-v1.1` (Root Script) | **Not tested** as a script on our device. It contains the same driver code as v1.1. |
+| `rootscript-v1.1` (Root Script) | **Tested, works** (2026-10-20, before a device reset, so no logs were kept). The script has not changed since, apart from comments. It contains the same driver code as v1.1. |
 
 Other devices, kernels and SELinux Enforcing setups are not tested.
 
@@ -51,8 +51,9 @@ On a Pocket FIT G3 Gen 3 (kernel `6.1.75-android14-11`, Magisk 30.7, SELinux Per
 
 - v1.1 installed through Magisk and rebooted: Android booted normally, the driver loaded after boot, the 60 s guard cleared, `test/ntsync_test.py` passed every check, no kernel errors.
 - DiRT Showdown in Bannerlator (DroidDeck-Proton 11.0-9.1 v14 layer, Sync = ntsync): Wine used the kernel driver (about 600 ntsync objects in the game, 2,600 in the wineserver, no esync), no crashes.
+- Root Script: run through System Settings → Root Script and worked, before a device reset (no logs were kept). The script has not changed since, apart from comments.
 
-Not tested: a device with SELinux Enforcing (on the test device, SELinux logged the app's `ioctl` on `/dev/ntsync` as denied but allowed it because of Permissive; on Enforcing, `service.sh` adds rules that allow it). The Root Script option was not tested.
+Not tested: a device with SELinux Enforcing (on the test device, SELinux logged the app's `ioctl` on `/dev/ntsync` as denied but allowed it because of Permissive; on Enforcing, `service.sh` adds rules that allow it).
 
 ## Notes
 
