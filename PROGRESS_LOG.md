@@ -1,7 +1,12 @@
 # Progress log
 
 ## Resume point
-Release cleanup done (2026-10-20). Releases: `v1.1` (Magisk, Latest, tag 2e9496a) and `rootscript-v1.1` (Root Script, tag 60a8e02, CI run 39514494770). Git history not rewritten (user chose to skip it). Open: SELinux Enforcing untested; Root Script untested; no esync vs ntsync benchmark.
+Repo PUBLIC since 2026-10-21. Releases: `v1.1` (Magisk, Latest, tag 2e9496a) and `rootscript-v1.1` (Root Script, tag 60a8e02); both tested and working on the Pocket FIT. Open: SELinux Enforcing untested; no esync vs ntsync benchmark.
+
+## 2026-10-21 — Root Script marked tested; repo public (main, docs only)
+- Correction: the user ran the Root Script on the device on 2026-10-20 and it worked, before the Magisk bootloop and the factory reset (no logs kept). The earlier "not tested" came from missing records, not from a failed or skipped test. Script logic unchanged since (eaecb4c → 60a8e02: comment lines only); `ntsync.ko` code == v1.1.
+- README status table + Tested section, and the `rootscript-v1.1` release notes, now say "tested, works". Branch fix/rootscript-tested, ff to main 2d057e5 (backup ref refs/backup/20261021/main-before-rootscript-tested = d115162). Tag and asset unchanged.
+- Repo made public at the user's request (as-is, with history).
 
 ## 2026-10-20 — Wording fixes (main, docs only)
 - README: Root Script output "should show" the OK line (the script prints `ls -l /dev/ntsync` after it); "not re-tested" → "not tested". Branch fix/readme-wording, ff to main ca97776 (backup ref refs/backup/20261020/main-before-readme-wording = 91d3a4b).
